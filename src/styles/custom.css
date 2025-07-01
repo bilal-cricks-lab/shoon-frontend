@@ -49,6 +49,24 @@ body {
   color: #7d7d7d;
 }
 
+.t1 {
+  background-color: #e7e2e8;
+}
+
+.t2 {
+  background-color: #dba6ac;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+
 .wel-ban {
   color: rgb(35, 35, 35);
   cursor: pointer;
