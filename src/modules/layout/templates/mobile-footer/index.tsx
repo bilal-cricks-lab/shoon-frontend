@@ -28,33 +28,42 @@ const sections = [
   {
     title: "Pages",
     items: [
-      { label: "Celebrate 50 Years With Moda In Pelle", href: "#" },
-      { label: "Serenade of Summer Spring Summer 2025", href: "#" },
-      { label: "Shoon", href: "#" },
-      { label: "Pink Ribbon", href: "#" },
-      { label: "eGift Cards", href: "#" },
-      { label: "eGift Card Information", href: "#" },
-      { label: "Discount Codes", href: "#" },
-      { label: "Healthcare & Key Worker Discount", href: "#" },
-      { label: "Student Discount", href: "#" },
-      { label: "Our Heritage", href: "#" },
+      {
+        label: "Celebrate 50 Years With Moda In Pelle",
+        href: "/50-years",
+      },
+      {
+        label: "Serenade of Summer Spring Summer 2025",
+        href: "/serenade-2025",
+      },
+      { label: "Shoon", href: "/shoon" },
+      { label: "Pink Ribbon", href: "/pink-ribbon" },
+      { label: "eGift Cards", href: "/egift-cards" },
+      { label: "eGift Card Information", href: "/egift-card-info" },
+      { label: "Discount Codes", href: "/discount-codes" },
+      {
+        label: "Healthcare & Key Worker Discount",
+        href: "/keyworker-discount",
+      },
+      { label: "Student Discount", href: "/student-discount" },
+      { label: "Our Heritage", href: "/heritage" },
     ],
   },
   {
     title: "More Information",
     items: [
-      { label: "Blog", href: "#" },
-      { label: "Store Finder", href: "#" },
-      { label: "Wholesale", href: "#" },
-      { label: "Affiliates & Influencers", href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Sitemap", href: "#" },
-      { label: "Sustainability", href: "#" },
-      { label: "Shoe Care Guide", href: "#" },
+      { label: "Blog", href: "/blog" },
+      { label: "Store Finder", href: "/store-finder" },
+      { label: "Wholesale", href: "/wholesale" },
+      { label: "Affiliates & Influencers", href: "/affiliates" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Careers", href: "/careers" },
+      { label: "Sitemap", href: "/sitemap" },
+      { label: "Sustainability", href: "/sustainability" },
+      { label: "Shoe Care Guide", href: "/shoe-care" },
     ],
   },
-];
+]
 
   return (
     <div className="w-full px-4 sm:block md:hidden">
