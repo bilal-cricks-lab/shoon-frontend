@@ -1,7 +1,11 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
 
-const BACKEND_URL = process.env.MEDUSA_BACKEND_URL
+// Use proxy in production to avoid mixed content issues
+const BACKEND_URL = process.env.NODE_ENV === "production" 
+  ? "/api/medusa" 
+  : (process.env.MEDUSA_BACKEND_URL || "http://16.170.238.1:8080")
+
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/medusa/:path*",
+      "destination": "/api/medusa-proxy?path=:path*"
+    }
+  ]
+} 

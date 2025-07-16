@@ -18,15 +18,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Allow HTTP backend URLs in production
-  async rewrites() {
-    return [
-      {
-        source: '/api/medusa/:path*',
-        destination: `${process.env.MEDUSA_BACKEND_URL || 'http://16.170.238.1:8080'}/:path*`,
-      },
-    ]
-  },
   images: {
     remotePatterns: [
       {

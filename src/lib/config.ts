@@ -1,9 +1,12 @@
 import Medusa from "@medusajs/js-sdk"
 
-// Defaults to standard port for Medusa server
-// let MEDUSA_BACKEND_URL = "http://localhost:9000"
-let MEDUSA_BACKEND_URL = "https://shoon-backend.onrender.com"
+// Use proxy in production to avoid mixed content issues
+// Use direct connection in development for better debugging
+let MEDUSA_BACKEND_URL = process.env.NODE_ENV === "production" 
+  ? "/api/medusa" 
+  : "http://16.170.238.1:8080"
 
+// Allow override via environment variable
 if (process.env.MEDUSA_BACKEND_URL) {
   MEDUSA_BACKEND_URL = process.env.MEDUSA_BACKEND_URL
 }
