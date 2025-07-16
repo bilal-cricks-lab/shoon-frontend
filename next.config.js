@@ -18,11 +18,24 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Allow HTTP backend URLs in production
+  async rewrites() {
+    return [
+      {
+        source: '/api/medusa/:path*',
+        destination: `${process.env.MEDUSA_BACKEND_URL || 'http://16.170.238.1:8080'}/:path*`,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "http",
+        hostname: "16.170.238.1",
       },
       {
         protocol: "https",
@@ -43,6 +56,7 @@ const nextConfig = {
      
     ],
     domains: [
+      '16.170.238.1',
       'shoon-backend.onrender.com',
       'medusa-public-images.s3.eu-west-1.amazonaws.com',
       'medusa-server-testing.s3.amazonaws.com'
