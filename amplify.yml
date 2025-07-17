@@ -3,6 +3,8 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "Enabling Corepack for Yarn 3..."
+        - corepack enable
         - echo "Installing dependencies..."
         - yarn install --frozen-lockfile --network-timeout 100000
     build:
@@ -16,4 +18,5 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-      - .next/cache/**/* 
+      - .next/cache/**/*
+      - .yarn/cache/**/* 
