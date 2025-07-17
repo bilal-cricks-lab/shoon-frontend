@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const BACKEND_URL = process.env.MEDUSA_BACKEND_URL || 'http://16.170.238.1:8080'
+// Set Node.js to ignore SSL certificate errors for self-signed certificates
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
+const BACKEND_URL = process.env.MEDUSA_BACKEND_URL || 'https://13.62.11.100'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const path = params.path.join('/')
+  const resolvedParams = await params
+  const path = resolvedParams.path.join('/')
   const url = new URL(request.url)
   const queryString = url.search
   
@@ -29,9 +33,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const path = params.path.join('/')
+  const resolvedParams = await params
+  const path = resolvedParams.path.join('/')
   const body = await request.json()
   
   try {

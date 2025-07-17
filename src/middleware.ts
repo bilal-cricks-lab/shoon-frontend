@@ -1,10 +1,8 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
 
-// Use proxy in production to avoid mixed content issues
-const BACKEND_URL = process.env.NODE_ENV === "production" 
-  ? "/api/medusa" 
-  : (process.env.MEDUSA_BACKEND_URL || "http://16.170.238.1:8080")
+// Use proxy to avoid Edge runtime issues with external HTTPS requests
+const BACKEND_URL = "/api/medusa"
 
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
@@ -14,21 +12,16 @@ const regionMapCache = {
   regionMapUpdated: Date.now(),
 }
 
-async function getRegionMap(cacheId: string) {
+async function getRegionMap(cacheId: string, request: NextRequest) {
   const { regionMap, regionMapUpdated } = regionMapCache
-
-  if (!BACKEND_URL) {
-    throw new Error(
-      "Middleware.ts: Error fetching regions. Did you set up regions in your Medusa Admin and define a MEDUSA_BACKEND_URL environment variable? Note that the variable is no longer named NEXT_PUBLIC_MEDUSA_BACKEND_URL."
-    )
-  }
 
   if (
     !regionMap.keys().next().value ||
     regionMapUpdated < Date.now() - 3600 * 1000
   ) {
-    // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
+    // Fetch regions from Medusa using the API proxy
+    const apiUrl = new URL(`${BACKEND_URL}/store/regions`, request.url)
+    const { regions } = await fetch(apiUrl.toString(), {
       headers: {
         "x-publishable-api-key": PUBLISHABLE_API_KEY!,
       },
@@ -116,7 +109,7 @@ export async function middleware(request: NextRequest) {
 
   let cacheId = cacheIdCookie?.value || crypto.randomUUID()
 
-  const regionMap = await getRegionMap(cacheId)
+  const regionMap = await getRegionMap(cacheId, request)
 
   const countryCode = regionMap && (await getCountryCode(request, regionMap))
 

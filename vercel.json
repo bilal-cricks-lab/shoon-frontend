@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/medusa/:path*",
-      "destination": "/api/medusa-proxy?path=:path*"
+      "destination": "/api/medusa/:path*"
     }
   ]
 } 

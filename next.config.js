@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === 'development') {
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  trailingSlash: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -23,10 +24,6 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-      },
-      {
-        protocol: "http",
-        hostname: "16.170.238.1",
       },
       {
         protocol: "https",
@@ -46,12 +43,16 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "13.62.11.100",
+      },
+      {
+        protocol: "https",
         hostname: "*.amplifyapp.com",
       }
     ],
     domains: [
-      '16.170.238.1',
       'shoon-backend.onrender.com',
+      '13.62.11.100',
       'medusa-public-images.s3.eu-west-1.amazonaws.com',
       'medusa-server-testing.s3.amazonaws.com'
     ],
