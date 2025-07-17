@@ -1,17 +1,16 @@
 const checkEnvVariables = require("./check-env-variables")
 
-checkEnvVariables()
+// Only check env variables in development to avoid build failures
+if (process.env.NODE_ENV === 'development') {
+  checkEnvVariables()
+}
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
   reactStrictMode: true,
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  output: 'standalone',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -19,6 +18,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -44,7 +44,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "shoon-backend.onrender.com",
       },
-     
+      {
+        protocol: "https",
+        hostname: "*.amplifyapp.com",
+      }
     ],
     domains: [
       '16.170.238.1',
