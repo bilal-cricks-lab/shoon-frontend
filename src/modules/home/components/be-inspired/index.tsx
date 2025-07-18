@@ -47,7 +47,7 @@ const Slider = dynamic(() => import("react-slick"), { ssr: false })
 ];
 const InspiredSection = () => {
   return (
-    <section className="inspired bg-white py-8 w-[90.5%] mx-auto">
+    <section className="inspired bg-white py-8 w-[100%] mx-auto">
       <div className="text-center mb-10 section-2">
         <h2 className="text-xl font-bold mb-4">Be Inspired</h2>
       </div>
@@ -60,7 +60,7 @@ const InspiredSection = () => {
             alt="Look 1"
             className="w-[350px] lg:w-[256px] lg:h-[256px] object-contain h-[350px] xl:w-[450px] xl:h-[450px]"
           />
-          <a href="#" className="px-5 mt-6 text-md hover:underline text-center wel-ban ">
+          <a href="#" className="px-5 text-md hover:underline text-center wel-ban ">
             Unlock the Western Trend with Moda i...
           </a>
           <p className="px-5 text-sm text-gray-600 text-center">April 2nd 2025</p>
@@ -73,7 +73,7 @@ const InspiredSection = () => {
             alt="Look 2"
             className="w-[350px] lg:w-[256px] lg:h-[256px] object-contain h-[350px] xl:w-[450px] xl:h-[450px]"
           />
-          <a href="#" className="mt-6 text-md hover:underline text-center wel-ban">
+          <a href="#" className="text-md hover:underline text-center wel-ban">
             Spring Summer '25: Serenade of the Sun
           </a>
           <p className="text-sm text-gray-600 text-center">March 3rd 2025</p>
@@ -86,7 +86,7 @@ const InspiredSection = () => {
             alt="Look 3"
             className="w-[350px] lg:w-[256px] lg:h-[256px] object-contain h-[350px] xl:w-[450px] xl:h-[450px]"
           />
-          <a href="#" className="mt-6  text-md hover:underline text-center wel-ban">
+          <a href="#" className="text-md hover:underline text-center wel-ban">
             Shoe Cleaning and Care Guide
           </a>
           <p className="text-sm text-gray-600 text-center">February 11th 2025</p>
@@ -99,7 +99,7 @@ const InspiredSection = () => {
             alt="Look 4"
             className="w-[350px] lg:w-[256px] lg:h-[256px] object-contain h-[350px] xl:w-[450px] xl:h-[450px]"
           />
-          <a href="#" className="mt-6 text-md hover:underline text-center wel-ban">
+          <a href="#" className="text-md hover:underline text-center wel-ban">
             Moda in Pelle’s Picks for Valentine’s Day...
           </a>
           <p className="text-sm text-gray-600 text-center">February 6th 2025</p>

@@ -13,9 +13,9 @@ import { getRegion } from "@lib/data/regions"
 
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Moda in Pelle || Women's Footwear",
   description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+    "Moda in Pelle || Women's Footwear",
 }
 
 export default async function Home(props: {
