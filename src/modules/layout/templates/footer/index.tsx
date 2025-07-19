@@ -186,13 +186,7 @@ const Footer: React.FC = () => {
               ))}
             </div>
 
-            <p className="xs text-gray font-light">
-              {" "}
-              <a href="#" className="hover:underline">
-                eCommerce
-              </a>
-              by Visualsoft
-            </p>
+           
           </div>
           <div className="text-center mt-4">
             <img src="/cards/trustlogo.png" alt="image" className="mx-auto" />
