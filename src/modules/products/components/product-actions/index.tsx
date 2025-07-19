@@ -9,6 +9,8 @@ import { isEqual } from "lodash"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import MobileActions from "./mobile-actions"
+import toast from 'react-hot-toast'
+
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -99,15 +101,21 @@ export default function ProductActions({
   // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
-
+  
     setIsAdding(true)
-
-    await addToCart({
-      variantId: selectedVariant.id,
-      quantity: 1,
-      countryCode,
-    })
-
+  
+    try {
+      await addToCart({
+        variantId: selectedVariant.id,
+        quantity: 1,
+        countryCode,
+      })
+  
+      toast.success("Product added to cart successfully!") 
+    } catch (error) {
+      toast.error("Failed to add product to cart.") 
+    }
+  
     setIsAdding(false)
   }
 
