@@ -4,7 +4,7 @@ import Medusa from "@medusajs/js-sdk"
 // Use direct connection in development for better debugging
 let MEDUSA_BACKEND_URL = process.env.NODE_ENV === "production" 
   ? "/api/medusa" 
-  : "http://16.170.238.1:8080"
+  : "http://13.62.11.100:8080"
 
 // Allow override via environment variable
 if (process.env.MEDUSA_BACKEND_URL) {
