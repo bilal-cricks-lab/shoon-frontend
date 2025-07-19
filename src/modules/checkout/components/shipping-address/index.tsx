@@ -36,7 +36,6 @@ const ShippingAddress = ({
     [cart?.region]
   )
 
-  // check if customer has saved addresses that are in the current region
   const addressesInRegion = useMemo(
     () =>
       customer?.addresses.filter(
@@ -60,7 +59,6 @@ const ShippingAddress = ({
         "shipping_address.city": address?.city || "",
         "shipping_address.country_code": address?.country_code || "",
         "shipping_address.province": address?.province || "",
-     
       }))
 
     email &&
@@ -71,7 +69,6 @@ const ShippingAddress = ({
   }
 
   useEffect(() => {
-    // Ensure cart is not null and has a shipping_address before setting form data
     if (cart && cart.shipping_address) {
       setFormAddress(cart?.shipping_address, cart?.email)
     }
@@ -79,12 +76,10 @@ const ShippingAddress = ({
     if (cart && !cart.email && customer?.email) {
       setFormAddress(undefined, customer.email)
     }
-  }, [cart]) // Add cart as a dependency
+  }, [cart])
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLInputElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({
       ...formData,
@@ -95,8 +90,8 @@ const ShippingAddress = ({
   return (
     <>
       {customer && (addressesInRegion?.length || 0) > 0 && (
-        <Container className="mb-6 flex flex-col gap-y-4 p-5">
-          <p className="text-small-regular">
+        <div className="mb-6 flex flex-col gap-y-4 p-5 border border-gray-300">
+          <p className="text-sm">
             {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
           </p>
           <AddressSelect
@@ -108,109 +103,116 @@ const ShippingAddress = ({
             }
             onSelect={setFormAddress}
           />
-        </Container>
+        </div>
       )}
+
+      {/* Input fields */}
       <div className="grid grid-cols-2 gap-4">
-        <Input
-          label="First name"
-          name="shipping_address.first_name"
-          autoComplete="given-name"
-          value={formData["shipping_address.first_name"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-first-name-input"
-        />
-        <Input
-          label="Last name"
-          name="shipping_address.last_name"
-          autoComplete="family-name"
-          value={formData["shipping_address.last_name"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-last-name-input"
-        />
-        <Input
-          label="Address"
-          name="shipping_address.address_1"
-          autoComplete="address-line1"
-          value={formData["shipping_address.address_1"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-address-input"
-        />
-        <Input
-          label="Company"
-          name="shipping_address.company"
-          value={formData["shipping_address.company"]}
-          onChange={handleChange}
-          autoComplete="organization"
-          data-testid="shipping-company-input"
-        />
-        <Input
-          label="Postal code"
-          name="shipping_address.postal_code"
-          autoComplete="postal-code"
-          value={formData["shipping_address.postal_code"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-postal-code-input"
-        />
-        <Input
-          label="City"
-          name="shipping_address.city"
-          autoComplete="address-level2"
-          value={formData["shipping_address.city"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-city-input"
-        />
-        <CountrySelect
-          name="shipping_address.country_code"
-          autoComplete="country"
-          region={cart?.region}
-          value={formData["shipping_address.country_code"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-country-select"
-        />
-        <Input
-          label="State / Province"
-          name="shipping_address.province"
-          autoComplete="address-level1"
-          value={formData["shipping_address.province"]}
-          onChange={handleChange}
-          data-testid="shipping-province-input"
-        />
+        {[
+          { label: "First name", name: "shipping_address.first_name", required: true },
+          { label: "Last name", name: "shipping_address.last_name", required: true },
+          { label: "Address", name: "shipping_address.address_1", required: true },
+          { label: "Company", name: "shipping_address.company", required: false },
+          { label: "Postal code", name: "shipping_address.postal_code", required: true },
+          { label: "City", name: "shipping_address.city", required: true },
+          { label: "State / Province", name: "shipping_address.province", required: false },
+        ].map((field) => (
+          <div className="flex items-start gap-6 w-full" key={field.name}>
+            <label className="w-40 pt-2 text-sm font-medium text-gray-700">
+              {field.label}
+              {field.required && <span className="text-red-500 ml-1">*</span>}
+            </label>
+            <input
+              type="text"
+              name={field.name}
+              placeholder={field.label}
+              className="w-full md:w-[350px] px-3 py-2 text-xs placeholder-gray-500 placeholder:italic border border-black focus:outline-none"
+              value={formData[field.name]}
+              onChange={handleChange}
+              required={field.required}
+            />
+          </div>
+        ))}
+
+
+        <div className="flex items-start gap-6 w-full">
+          <label className="w-40 pt-2 text-sm font-medium text-gray-700">
+            Country <span className="text-red-500 ml-1">*</span>
+          </label>
+          <div className="w-full md:w-[350px]">
+            <div className="relative">
+              <CountrySelect
+                name="shipping_address.country_code"
+                autoComplete="country"
+                region={cart?.region}
+                value={formData["shipping_address.country_code"]}
+                onChange={handleChange}
+                required
+                data-testid="shipping-country-select"
+                
+              />
+
+              <div className="absolute inset-0 pointer-events-none border border-black rounded-sm" />
+            </div>
+          </div>
+
+        </div>
       </div>
+
+      {/* Checkbox */}
       <div className="my-8">
-        <Checkbox
-          label="Billing address same as shipping address"
-          name="same_as_billing"
-          checked={checked}
-          onChange={onChange}
-          data-testid="billing-address-checkbox"
-        />
+        <div className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            id="same_as_billing"
+            name="same_as_billing"
+            checked={checked}
+            onChange={onChange}
+            className="mt-1"
+            data-testid="billing-address-checkbox"
+          />
+          <label htmlFor="same_as_billing" className="text-sm mt-3">
+            Billing address same as shipping address
+          </label>
+        </div>
       </div>
+
+      {/* Email and Phone */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <Input
-          label="Email"
-          name="email"
-          type="email"
-          title="Enter a valid email address."
-          autoComplete="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          data-testid="shipping-email-input"
-        />
-        <Input
-          label="Phone"
-          name="shipping_address.phone"
-          autoComplete="tel"
-          value={formData["shipping_address.phone"]}
-          onChange={handleChange}
-          data-testid="shipping-phone-input"
-        />
+        {[
+          {
+            label: "Email",
+            name: "email",
+            type: "email",
+            required: true,
+            autoComplete: "email",
+          },
+          {
+            label: "Phone",
+            name: "shipping_address.phone",
+            type: "tel",
+            required: false,
+            autoComplete: "tel",
+          },
+        ].map((field) => (
+          <div className="flex items-start gap-6 w-full" key={field.name}>
+            <label className="w-40 pt-2 text-sm font-medium text-gray-700">
+              {field.label}
+              {field.required && <span className="text-red-500 ml-1">*</span>}
+            </label>
+            <input
+              type={field.type}
+              name={field.name}
+              autoComplete={field.autoComplete}
+              placeholder={field.label}
+              className="w-full md:w-[350px] px-3 py-2 text-xs placeholder-gray-500 placeholder:italic border border-black focus:outline-none"
+              value={formData[field.name]}
+              onChange={handleChange}
+              required={field.required}
+              data-testid={`shipping-${field.name.replace("shipping_address.", "")}-input`}
+            />
+          </div>
+        ))}
       </div>
     </>
   )
